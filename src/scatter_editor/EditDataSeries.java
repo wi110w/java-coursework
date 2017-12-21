@@ -37,7 +37,7 @@ public class EditDataSeries extends Application {
     public void start(Stage primaryStage) {
         primaryStage.setTitle("SDE");
         GridPane root = new GridPane();
-        Scene scene = new Scene(root, 300, 500);
+        Scene scene = new Scene(root, 300, 300);
 
         Label dataSeriesX = new Label("X Data:");
         TextArea dataXInput = new TextArea();

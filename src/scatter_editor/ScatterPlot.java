@@ -49,8 +49,8 @@ public class ScatterPlot extends Application {
 
     }
 
-    public static void deleteData(ScatterChart<Number, Number> sc) {
-
+    public static void deleteData(ScatterChart<Number, Number> sc, int index) {
+        sc.getData().remove(index);
     }
 
     public static void deleteNames(ScatterChart<Number, Number> sc) {

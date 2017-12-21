@@ -25,7 +25,7 @@ public class DataSeries extends Application {
     public void start(Stage primaryStage) {
         primaryStage.setTitle("SDE");
         GridPane root = new GridPane();
-        Scene scene = new Scene(root, 300, 500);
+        Scene scene = new Scene(root, 300, 300);
 
 
 
@@ -60,16 +60,13 @@ public class DataSeries extends Application {
         root.setPadding(new Insets(6));
         root.add(legend, 0, 1);
         root.add(legendInput, 0, 2);
-        root.add(errorLegend, 1, 2);
         root.add(dataSeriesX, 0, 3);
         root.add(dataXInput, 0, 4);
-        root.add(errorSeriesX, 0,5);
         root.add(create, 0, 6);
         GridPane.setColumnSpan(create, 2);
         GridPane.setHalignment(create, HPos.CENTER);
         root.add(dataSeriesY, 1, 3);
         root.add(dataYInput, 1, 4);
-        root.add(errorSeriesY, 1,5);
 
 
         primaryStage.setScene(scene);
