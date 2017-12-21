@@ -27,16 +27,24 @@ public class Main extends Application {
         Button setNames = new Button("Set title, names...");
         Button newData = new Button("New data series...");
         Button editData = new Button("Edit data series");
+
         setNames.setOnAction(actionEvent -> {
             Names names = new Names();
-            names.start(new Stage());
             names.setChart(sc);
+            names.start(new Stage());
         });
+
         newData.setOnAction((actionEvent -> {
             DataSeries dataSeries = new DataSeries();
-            dataSeries.start(new Stage());
             dataSeries.setChart(sc);
+            dataSeries.start(new Stage());
         }));
+
+        editData.setOnAction(actionEvent -> {
+            EditDataChoser dataChoser = new EditDataChoser();
+            dataChoser.setChart(sc);
+            dataChoser.start(new Stage());
+        });
 
         root.add(setNames, 0,0);
         root.add(newData, 0, 1);

@@ -34,7 +34,15 @@ public class ScatterPlot extends Application {
         sc.getData().add(series);
     }
 
-    public static void editData(ScatterChart<Number, Number> sc, String legend, String[] dataX, String[] dataY) {
+    public static void editData(ScatterChart<Number, Number> sc, int index, String legend, String[] dataX, String[] dataY) {
+        sc.getData().remove(index);
+        XYChart.Series series = new XYChart.Series();
+        series.setName(legend);
+        for (int i = 0; i < dataX.length; i++) {
+            series.getData().add(new XYChart.Data(Float.parseFloat(dataX[i]), Float.parseFloat(dataY[i])));
+        }
+
+        sc.getData().add(series);
     }
 
     public static void editNames(ScatterChart<Number, Number> sc, String title, String xAxisName, String yAxisName) {
