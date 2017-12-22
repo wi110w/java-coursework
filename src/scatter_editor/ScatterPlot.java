@@ -55,7 +55,15 @@ public class ScatterPlot extends Application {
         sc.getData().remove(index);
     }
 
-    public static void deleteNames(ScatterChart<Number, Number> sc) {
-
+    public static void deleteNames(ScatterChart<Number, Number> sc, boolean deleteTitle, boolean deleteNameX, boolean deleteNameY) {
+        if (deleteTitle) {
+            sc.setTitle("");
+        }
+        if (deleteNameX) {
+            sc.getXAxis().setLabel("");
+        }
+        if (deleteNameY) {
+            sc.getYAxis().setLabel("");
+        }
     }
 }

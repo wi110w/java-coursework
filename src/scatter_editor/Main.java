@@ -45,7 +45,9 @@ public class Main extends Application {
         });
 
         deleteNames.setOnAction(actionEvent -> {
-
+            DeleteNamesChoser deleteNamesChoser = new DeleteNamesChoser();
+            deleteNamesChoser.setChart(sc);
+            deleteNamesChoser.start(new Stage());
         });
 
         newData.setOnAction((actionEvent -> {
