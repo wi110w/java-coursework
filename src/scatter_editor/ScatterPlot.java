@@ -66,4 +66,15 @@ public class ScatterPlot extends Application {
             sc.getYAxis().setLabel("");
         }
     }
+
+    public static void editTickUnits(ScatterChart<Number, Number> sc, int tickUnitX, int tickUnitY) {
+        if(tickUnitX != 0) {
+            NumberAxis xAxis = (NumberAxis) sc.getXAxis();
+            xAxis.setTickUnit(tickUnitX);
+        }
+        if(tickUnitY != 0) {
+            NumberAxis yAxis = (NumberAxis) sc.getYAxis();
+            yAxis.setTickUnit(tickUnitY);
+        }
+    }
 }

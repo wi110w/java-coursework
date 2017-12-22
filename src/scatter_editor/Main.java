@@ -18,7 +18,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         primaryStage.setTitle("SDE");
-        Scene scene = new Scene(root, 550, 550);
+        Scene scene = new Scene(root, 650, 550);
 
         NumberAxis xAxis = new NumberAxis(0, 40, 3);
         NumberAxis yAxis = new NumberAxis(-500, 1000, 100);
@@ -31,6 +31,7 @@ public class Main extends Application {
         Button newData = new Button("New data series...");
         Button editData = new Button("Edit data series");
         Button deleteData = new Button("Delete data series");
+        Button editTicks = new Button("Edit ticks");
 
         setNames.setOnAction(actionEvent -> {
             Names names = new Names();
@@ -68,14 +69,21 @@ public class Main extends Application {
             deleteDataChoser.start(new Stage());
         });
 
+        editTicks.setOnAction(actionEvent -> {
+            EditTickUnit editTickUnit = new EditTickUnit();
+            editTickUnit.setChart(sc);
+            editTickUnit.start(new Stage());
+        });
+
         root.add(setNames, 1,1);
         root.add(editNames, 1, 2);
         root.add(deleteNames, 1,3);
         root.add(newData, 2, 1);
         root.add(editData,2,2);
         root.add(deleteData, 2, 3);
+        root.add(editTicks, 3, 1);
         root.add(sc, 0,0);
-        GridPane.setColumnSpan(sc, 3);
+        GridPane.setColumnSpan(sc, 4);
         GridPane.setHalignment(sc, HPos.CENTER);GridPane.setMargin(sc, new Insets(0, 0,25,0));
         root.setPadding(new Insets(20));
         root.setHgap(80);
