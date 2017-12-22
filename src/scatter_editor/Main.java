@@ -39,7 +39,9 @@ public class Main extends Application {
         });
 
         editNames.setOnAction(actionEvent -> {
-
+            EditNames edit = new EditNames();
+            edit.setChart(sc);
+            edit.start(new Stage());
         });
 
         deleteNames.setOnAction(actionEvent -> {

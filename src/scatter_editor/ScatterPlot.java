@@ -46,7 +46,9 @@ public class ScatterPlot extends Application {
     }
 
     public static void editNames(ScatterChart<Number, Number> sc, String title, String xAxisName, String yAxisName) {
-
+        sc.setTitle(title);
+        sc.getXAxis().setLabel(xAxisName);
+        sc.getYAxis().setLabel(yAxisName);
     }
 
     public static void deleteData(ScatterChart<Number, Number> sc, int index) {
