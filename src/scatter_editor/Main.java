@@ -43,6 +43,8 @@ public class Main extends Application {
         Button deleteData = new Button("Delete data series");
         Button editTicks = new Button("Edit ticks");
         Button saveDiagram = new Button("Save diagram");
+        Button saveData = new Button("Save data");
+        Button loadData = new Button("Load data");
 
         setNames.setOnAction(actionEvent -> {
             Names names = new Names();
@@ -57,7 +59,7 @@ public class Main extends Application {
         });
 
         deleteNames.setOnAction(actionEvent -> {
-            DeleteNamesChoser deleteNamesChoser = new DeleteNamesChoser();
+            DeleteNamesChooser deleteNamesChoser = new DeleteNamesChooser();
             deleteNamesChoser.setChart(sc);
             deleteNamesChoser.start(new Stage());
         });
@@ -69,13 +71,13 @@ public class Main extends Application {
         }));
 
         editData.setOnAction(actionEvent -> {
-            EditDataChoser dataChoser = new EditDataChoser();
+            EditDataChooser dataChoser = new EditDataChooser();
             dataChoser.setChart(sc);
             dataChoser.start(new Stage());
         });
 
         deleteData.setOnAction(actionEvent -> {
-            DeleteDataChoser deleteDataChoser = new DeleteDataChoser();
+            DeleteDataChooser deleteDataChoser = new DeleteDataChooser();
             deleteDataChoser.setChart(sc);
             deleteDataChoser.start(new Stage());
         });
@@ -104,6 +106,15 @@ public class Main extends Application {
                 return null; }, new SnapshotParameters(), null);
         });
 
+        saveData.setOnAction(actionEvent -> {
+
+        });
+
+        loadData.setOnAction(actionEvent -> {
+            LoadDataChooser loadDataChooser = new LoadDataChooser();
+            loadDataChooser.start(new Stage());
+        });
+
         root.add(setNames, 0,1);
         root.add(editNames, 0, 2);
         root.add(deleteNames, 0,3);
@@ -112,6 +123,8 @@ public class Main extends Application {
         root.add(deleteData, 1, 3);
         root.add(editTicks, 2, 1);
         root.add(saveDiagram, 2,2);
+        root.add(saveData, 2,3);
+        root.add(loadData, 2, 4);
         root.add(sc, 0,0);
         GridPane.setColumnSpan(sc, 4);
         GridPane.setHalignment(sc, HPos.CENTER);GridPane.setMargin(sc, new Insets(0, 0,25,0));
