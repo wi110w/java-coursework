@@ -38,10 +38,6 @@ public class Names extends Application {
         Label nameY = new Label("Y Axis:");
         TextField nameYInput = new TextField();
 
-        Label errorTitle = new Label();
-        Label errorNameX = new Label();
-        Label errorNameY = new Label();
-
 
         Button set = new Button("Set");
         set.setOnAction(actionEvent -> {
