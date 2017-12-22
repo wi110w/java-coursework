@@ -8,7 +8,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
-public class DeleteNamesChoser extends Application {
+public class DeleteNamesChooser extends Application {
 
     ScatterChart<Number, Number> scatterChart;
 

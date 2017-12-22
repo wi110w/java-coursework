@@ -5,11 +5,11 @@ import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import javafx.scene.control.*;
 
-public class EditDataChoser extends Application {
+public class DeleteDataChooser extends Application {
 
     ScatterChart<Number, Number> scatterChart;
     static ObservableList<XYChart.Series<Number, Number>> data;
@@ -24,6 +24,7 @@ public class EditDataChoser extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+
         primaryStage.setTitle("SDE");
         GridPane root = new GridPane();
         Scene scene = new Scene(root, 300, 500);
@@ -36,11 +37,7 @@ public class EditDataChoser extends Application {
             Button chooseData = new Button(data.get(i).getName());
             final int index = i;
             chooseData.setOnAction(actionEvent -> {
-                EditDataSeries editDataSeries = new EditDataSeries();
-                editDataSeries.setData(data.get(index));
-                editDataSeries.setIndex(index);
-                editDataSeries.setChart(scatterChart);
-                editDataSeries.start(new Stage());
+                ScatterPlot.deleteData(scatterChart, index);
                 primaryStage.close();
             });
 
