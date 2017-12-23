@@ -28,6 +28,9 @@ public class LoadDataFromServer extends Application {
         load.setOnAction(actionEvent -> {
             String urlIn = urlInput.getText();
             String datasetNameIn = datasetNameInput.getText();
+
+            ChartLoader.loadDataSet(urlIn, datasetNameIn);
+            primaryStage.close();
         });
 
         root.setVgap(10);

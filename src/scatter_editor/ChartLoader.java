@@ -71,6 +71,10 @@ public class ChartLoader {
         data.add(s);
     }
 
+    public static void loadDataSet(String url, String datasetName) {
+
+    }
+
     private void updateAxis(JSONObject config, String key, String defaultName, Axis<Number> axis) {
         String label = (config != null) ? config.optString(key, defaultName) : defaultName;
         axis.setLabel(label);
