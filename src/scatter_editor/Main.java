@@ -50,7 +50,7 @@ public class Main extends Application {
         Button editData = new Button("Edit data series");
         Button deleteData = new Button("Delete data series");
         Button editTicks = new Button("Edit ticks");
-        Button saveDiagram = new Button("Export diagram");
+        Button exportDiagram = new Button("Export diagram");
         Button openProject = new Button("Open Project");
         Button saveProject = new Button("Save project");
         Button loadData = new Button("Load data");
@@ -97,7 +97,7 @@ public class Main extends Application {
             editTickUnit.start(new Stage());
         });
 
-        saveDiagram.setOnAction(this::showExportDiagramDialog);
+        exportDiagram.setOnAction(this::showExportDiagramDialog);
         openProject.setOnAction(this::showOpenProjectDialog);
         saveProject.setOnAction(this::showSaveProjectDialog);
 
@@ -114,7 +114,6 @@ public class Main extends Application {
 
         root.add(editNames, 0, 2);
         root.add(editData, 1, 2);
-        root.add(saveDiagram, 2, 2);
 
         root.add(deleteNames, 0, 3);
         root.add(deleteData, 1, 3);
@@ -128,6 +127,7 @@ public class Main extends Application {
 
         root.add(openProject, 0, 5);
         root.add(saveProject, 1, 5);
+        root.add(exportDiagram, 2, 5);
 
         GridPane.setColumnSpan(chart, 4);
         GridPane.setHalignment(chart, HPos.CENTER);
