@@ -26,7 +26,9 @@ public class LoadDataChooser extends Application {
         });
 
         loadFromServer.setOnAction(actionEvent -> {
-
+            LoadDataFromServer loadDataFromServer = new LoadDataFromServer();
+            loadDataFromServer.start(new Stage());
+            primaryStage.close();
         });
 
         root.setVgap(10);
