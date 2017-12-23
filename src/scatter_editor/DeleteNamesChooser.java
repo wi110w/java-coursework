@@ -10,10 +10,10 @@ import javafx.stage.Stage;
 
 public class DeleteNamesChooser extends Application {
 
-    ScatterChart<Number, Number> scatterChart;
+    ScatterChart<Number, Number> chart;
 
     public void setChart(ScatterChart<Number, Number> sc) {
-        scatterChart = sc;
+        chart = sc;
     }
 
     public static void main(String[] args) {
@@ -32,7 +32,7 @@ public class DeleteNamesChooser extends Application {
 
         Button delete = new Button("Delete");
         delete.setOnAction(actionEvent -> {
-            ScatterPlot.deleteNames(scatterChart, titleDelete.isSelected(), nameXDelete.isSelected(), nameYDelete.isSelected());
+            ScatterPlot.deleteNames(chart, titleDelete.isSelected(), nameXDelete.isSelected(), nameYDelete.isSelected());
             primaryStage.close();
         });
 

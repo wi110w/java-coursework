@@ -7,21 +7,25 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
+import java.util.List;
+
 public class EditDataSeries extends Application {
+    private XYChart.Series<Number, Number> series;
+    private int index;
+    private ScatterChart<Number, Number> scatterChart;
 
-    XYChart.Series data;
-    int index;
-    ScatterChart<Number, Number> scatterChart;
-
-    public void setData(XYChart.Series d) {
-        data = d;
+    void setSeries(XYChart.Series d) {
+        series = d;
     }
 
-    public void setIndex(int i) {
+    void setIndex(int i) {
         index = i;
     }
 
@@ -37,7 +41,6 @@ public class EditDataSeries extends Application {
     public void start(Stage primaryStage) {
         primaryStage.setTitle("SDE");
         GridPane root = new GridPane();
-        Scene scene = new Scene(root, 300, 300);
 
         Label dataSeriesX = new Label("X Data:");
         TextArea dataXInput = new TextArea();
@@ -48,19 +51,19 @@ public class EditDataSeries extends Application {
         Label dataSeriesY = new Label("Y Data:");
         TextArea dataYInput = new TextArea();
 
-        legendInput.setText(data.getName());
+        legendInput.setText(series.getName());
 
-        ObservableList<XYChart.Data> series = data.getData();
-        String dataX = "";
-        String dataY = "";
+        List<XYChart.Data<Number, Number>> data = series.getData();
+        StringBuilder dataX = new StringBuilder();
+        StringBuilder dataY = new StringBuilder();
 
-        for (int i = 0; i < series.size(); i++) {
-            dataX += series.get(i).getXValue() + "\n";
-            dataY += series.get(i).getYValue() + "\n";
+        for (XYChart.Data<Number, Number> s : data) {
+            dataX.append(s.getXValue()).append("\n");
+            dataY.append(s.getYValue()).append("\n");
         }
 
-        dataXInput.setText(dataX);
-        dataYInput.setText(dataY);
+        dataXInput.setText(dataX.toString());
+        dataYInput.setText(dataY.toString());
 
         Button edit = new Button("Edit");
         edit.setOnAction(actionEvent -> {
@@ -87,6 +90,7 @@ public class EditDataSeries extends Application {
         root.add(dataSeriesY, 1, 3);
         root.add(dataYInput, 1, 4);
 
+        Scene scene = new Scene(root, 300, 300);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
