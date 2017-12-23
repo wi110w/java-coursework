@@ -11,6 +11,7 @@ import javafx.scene.SnapshotResult;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.control.Button;
+import javafx.scene.control.Separator;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
@@ -19,13 +20,17 @@ import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 
 public class Main extends Application {
-
-    private ScatterChart<Number, Number> scatterChart;
+    private ScatterChart<Number, Number> chart;
     private Scene scene;
+
+    public ScatterChart<Number, Number> getChart() {
+        return chart;
+    }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -35,8 +40,8 @@ public class Main extends Application {
 
         NumberAxis xAxis = new NumberAxis(0, 40, 3);
         NumberAxis yAxis = new NumberAxis(-500, 1000, 100);
-        scatterChart = new ScatterChart<>(xAxis, yAxis);
-        scatterChart.setTitle("Untitled");
+        chart = new ScatterChart<>(xAxis, yAxis);
+        chart.setTitle("Untitled");
 
         Button setNames = new Button("Set title, names...");
         Button editNames = new Button("Edit title, names");
@@ -46,52 +51,54 @@ public class Main extends Application {
         Button deleteData = new Button("Delete data series");
         Button editTicks = new Button("Edit ticks");
         Button saveDiagram = new Button("Export diagram");
+        Button openProject = new Button("Open Project");
         Button saveProject = new Button("Save project");
         Button loadData = new Button("Load data");
 
         setNames.setOnAction(actionEvent -> {
             Names names = new Names();
-            names.setChart(scatterChart);
+            names.setChart(chart);
             names.start(new Stage());
         });
 
         editNames.setOnAction(actionEvent -> {
             EditNames edit = new EditNames();
-            edit.setChart(scatterChart);
+            edit.setChart(chart);
             edit.start(new Stage());
         });
 
         deleteNames.setOnAction(actionEvent -> {
             DeleteNamesChooser deleteNamesChoser = new DeleteNamesChooser();
-            deleteNamesChoser.setChart(scatterChart);
+            deleteNamesChoser.setChart(chart);
             deleteNamesChoser.start(new Stage());
         });
 
         newData.setOnAction((actionEvent -> {
             DataSeries dataSeries = new DataSeries();
-            dataSeries.setChart(scatterChart);
+            dataSeries.setChart(chart);
             dataSeries.start(new Stage());
         }));
 
         editData.setOnAction(actionEvent -> {
             EditDataChooser dataChoser = new EditDataChooser();
-            dataChoser.setChart(scatterChart);
+            dataChoser.setChart(chart);
             dataChoser.start(new Stage());
         });
 
         deleteData.setOnAction(actionEvent -> {
             DeleteDataChooser deleteDataChoser = new DeleteDataChooser();
-            deleteDataChoser.setChart(scatterChart);
+            deleteDataChoser.setChart(chart);
             deleteDataChoser.start(new Stage());
         });
 
         editTicks.setOnAction(actionEvent -> {
             EditTickUnit editTickUnit = new EditTickUnit();
-            editTickUnit.setChart(scatterChart);
+            editTickUnit.setChart(chart);
             editTickUnit.start(new Stage());
         });
 
         saveDiagram.setOnAction(this::showExportDiagramDialog);
+        openProject.setOnAction(this::showOpenProjectDialog);
         saveProject.setOnAction(this::showSaveProjectDialog);
 
         loadData.setOnAction(actionEvent -> {
@@ -99,7 +106,7 @@ public class Main extends Application {
             loadDataChooser.start(new Stage());
         });
 
-        root.add(scatterChart, 0, 0);
+        root.add(chart, 0, 0);
 
         root.add(setNames, 0, 1);
         root.add(newData, 1, 1);
@@ -111,13 +118,20 @@ public class Main extends Application {
 
         root.add(deleteNames, 0, 3);
         root.add(deleteData, 1, 3);
-        root.add(saveProject, 2, 3);
+        root.add(loadData, 2, 3);
 
-        root.add(loadData, 2, 4);
+        {
+            Separator separator = new Separator();
+            root.add(separator, 0, 4);
+            GridPane.setColumnSpan(separator, 4);
+        }
 
-        GridPane.setColumnSpan(scatterChart, 4);
-        GridPane.setHalignment(scatterChart, HPos.CENTER);
-        GridPane.setMargin(scatterChart, new Insets(0, 0, 25, 0));
+        root.add(openProject, 0, 5);
+        root.add(saveProject, 1, 5);
+
+        GridPane.setColumnSpan(chart, 4);
+        GridPane.setHalignment(chart, HPos.CENTER);
+        GridPane.setMargin(chart, new Insets(0, 0, 25, 0));
 
         root.setPadding(new Insets(20));
         root.setHgap(80);
@@ -126,6 +140,30 @@ public class Main extends Application {
         scene = new Scene(root, 650, 550);
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+    private void showOpenProjectDialog(ActionEvent actionEvent) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open scatter diagram");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Scatter Diagram files (*.json)", "*.json"),
+                new FileChooser.ExtensionFilter("All Files", "*.*")
+        );
+
+        File file = fileChooser.showOpenDialog(scene.getWindow());
+        if (file == null) {
+            return;
+        }
+
+        try {
+            new ChartLoader(file, getChart()).load();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void showSaveProjectDialog(ActionEvent actionEvent) {
+
     }
 
     public static void main(String[] args) {
@@ -145,7 +183,7 @@ public class Main extends Application {
             return;
         }
 
-        scatterChart.snapshot(snapshotResult -> {
+        chart.snapshot(snapshotResult -> {
             saveSnapshot(snapshotResult, file);
             return null;
         }, new SnapshotParameters(), null);
@@ -159,9 +197,5 @@ public class Main extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    private void showSaveProjectDialog(ActionEvent actionEvent) {
-
     }
 }
