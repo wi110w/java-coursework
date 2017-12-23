@@ -1,0 +1,8 @@
+{
+  "title": "Sample chart project",
+  "axes": {"x":"time", "y":"value"},
+  "data": [
+    {"name": "Alice's dataset", "source": "sample-data-a.csv"},
+    {"name": "Bob's dataset", "source": "sample-data-b.csv"}
+  ]
+}

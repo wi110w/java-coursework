@@ -1,22 +1,13 @@
 package scatter_editor;
 
-import javafx.application.Application;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
-import javafx.stage.Stage;
 
-public class ScatterPlot extends Application {
+import java.util.List;
 
-    public static void main(String[] args) {
-        launch(args);
-    }
-
-    @Override
-    public void start(Stage primaryStage) {
-    }
-
-    public static void setNames(ScatterChart<Number, Number> sc, String title, String xAxisName, String yAxisName) {
+class ScatterPlot {
+    static void setNames(ScatterChart<Number, Number> sc, String title, String xAxisName, String yAxisName) {
         NumberAxis xAxis = (NumberAxis) sc.getXAxis();
         NumberAxis yAxis = (NumberAxis) sc.getYAxis();
         sc.setTitle(title);
@@ -24,38 +15,45 @@ public class ScatterPlot extends Application {
         yAxis.setLabel(yAxisName);
     }
 
-    public static void setData(ScatterChart<Number, Number> sc, String legend, String[] dataX, String[] dataY) {
-        XYChart.Series series = new XYChart.Series();
+    static void setData(ScatterChart<Number, Number> sc, String legend, String[] dataX, String[] dataY) {
+        XYChart.Series<Number, Number> series = new XYChart.Series<>();
         series.setName(legend);
-        for (int i = 0; i < dataX.length; i++) {
-            series.getData().add(new XYChart.Data(Float.parseFloat(dataX[i]), Float.parseFloat(dataY[i])));
-        }
+
+        fillSeries(dataX, dataY, series);
 
         sc.getData().add(series);
     }
 
-    public static void editData(ScatterChart<Number, Number> sc, int index, String legend, String[] dataX, String[] dataY) {
-        sc.getData().remove(index);
-        XYChart.Series series = new XYChart.Series();
+    static void editData(ScatterChart<Number, Number> sc, int index, String legend, String[] dataX, String[] dataY) {
+        XYChart.Series<Number, Number> series = sc.getData().get(index);
         series.setName(legend);
-        for (int i = 0; i < dataX.length; i++) {
-            series.getData().add(new XYChart.Data(Float.parseFloat(dataX[i]), Float.parseFloat(dataY[i])));
-        }
 
-        sc.getData().add(series);
+        series.getData().clear();
+        fillSeries(dataX, dataY, series);
     }
 
-    public static void editNames(ScatterChart<Number, Number> sc, String title, String xAxisName, String yAxisName) {
+    private static void fillSeries(String[] x, String[] y, XYChart.Series<Number, Number> series) {
+        List<XYChart.Data<Number, Number>> points = series.getData();
+        for (int i = 0; i < x.length; i++) {
+            try {
+                XYChart.Data<Number, Number> p = new XYChart.Data<>(Float.parseFloat(x[i]), Float.parseFloat(y[i]));
+                points.add(p);
+            } catch (NumberFormatException ignored) {
+            }
+        }
+    }
+
+    static void editNames(ScatterChart<Number, Number> sc, String title, String xAxisName, String yAxisName) {
         sc.setTitle(title);
         sc.getXAxis().setLabel(xAxisName);
         sc.getYAxis().setLabel(yAxisName);
     }
 
-    public static void deleteData(ScatterChart<Number, Number> sc, int index) {
+    static void deleteData(ScatterChart<Number, Number> sc, int index) {
         sc.getData().remove(index);
     }
 
-    public static void deleteNames(ScatterChart<Number, Number> sc, boolean deleteTitle, boolean deleteNameX, boolean deleteNameY) {
+    static void deleteNames(ScatterChart<Number, Number> sc, boolean deleteTitle, boolean deleteNameX, boolean deleteNameY) {
         if (deleteTitle) {
             sc.setTitle("");
         }
@@ -67,12 +65,13 @@ public class ScatterPlot extends Application {
         }
     }
 
-    public static void editTickUnits(ScatterChart<Number, Number> sc, int tickUnitX, int tickUnitY) {
-        if(tickUnitX != 0) {
+    static void editTickUnits(ScatterChart<Number, Number> sc, int tickUnitX, int tickUnitY) {
+        if (tickUnitX > 0) {
             NumberAxis xAxis = (NumberAxis) sc.getXAxis();
             xAxis.setTickUnit(tickUnitX);
         }
-        if(tickUnitY != 0) {
+
+        if (tickUnitY > 0) {
             NumberAxis yAxis = (NumberAxis) sc.getYAxis();
             yAxis.setTickUnit(tickUnitY);
         }
