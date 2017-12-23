@@ -3,7 +3,6 @@ package scatter_editor;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.chart.ScatterChart;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
@@ -12,10 +11,10 @@ import javafx.stage.Stage;
 
 public class EditTickUnit extends Application {
 
-    ScatterChart<Number, Number> scatterChart;
+    private ScatterChart<Number, Number> chart;
 
     public void setChart(ScatterChart<Number, Number> sc) {
-        scatterChart = sc;
+        chart = sc;
     }
 
     public static void main(String[] args) {
@@ -26,7 +25,6 @@ public class EditTickUnit extends Application {
     public void start(Stage primaryStage) {
         primaryStage.setTitle("SDE");
         GridPane root = new GridPane();
-        Scene scene = new Scene(root, 300, 250);
 
         CheckBox editX = new CheckBox("X Axis");
         CheckBox editY = new CheckBox("Y Axis");
@@ -67,7 +65,7 @@ public class EditTickUnit extends Application {
                 tickYUnit = Integer.parseInt(tickYInput.getText());
             }
 
-            ScatterPlot.editTickUnits(scatterChart, tickXUnit, tickYUnit);
+            ScatterPlot.editTickUnits(chart, tickXUnit, tickYUnit);
             primaryStage.close();
         });
 
@@ -78,6 +76,7 @@ public class EditTickUnit extends Application {
         root.add(tickYInput, 1,1);
         root.add(edit, 0,2);
 
+        Scene scene = new Scene(root, 300, 250);
         primaryStage.setScene(scene);
         primaryStage.show();
     }

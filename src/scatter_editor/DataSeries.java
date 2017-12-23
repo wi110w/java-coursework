@@ -3,18 +3,21 @@ package scatter_editor;
 import javafx.application.Application;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.chart.ScatterChart;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
 
 public class DataSeries extends Application {
 
-    ScatterChart<Number, Number> scatterChart;
+    ScatterChart<Number, Number> chart;
 
     public void setChart(ScatterChart<Number, Number> sc) {
-        scatterChart = sc;
+        chart = sc;
     }
 
     public static void main(String[] args) {
@@ -25,9 +28,6 @@ public class DataSeries extends Application {
     public void start(Stage primaryStage) {
         primaryStage.setTitle("SDE");
         GridPane root = new GridPane();
-        Scene scene = new Scene(root, 300, 300);
-
-
 
         Label dataSeriesX = new Label("X Data:");
         TextArea dataXInput = new TextArea();
@@ -37,7 +37,6 @@ public class DataSeries extends Application {
 
         Label dataSeriesY = new Label("Y Data:");
         TextArea dataYInput = new TextArea();
-
 
         Label errorSeriesX = new Label();
         Label errorSeriesY = new Label();
@@ -51,7 +50,7 @@ public class DataSeries extends Application {
             String dataY = dataYInput.getText();
             String[] seriesY = dataY.split("\n");
 
-            ScatterPlot.setData(scatterChart, legendIn,seriesX,seriesY);
+            ScatterPlot.setData(chart, legendIn, seriesX, seriesY);
             primaryStage.close();
         }));
 
@@ -68,7 +67,7 @@ public class DataSeries extends Application {
         root.add(dataSeriesY, 1, 3);
         root.add(dataYInput, 1, 4);
 
-
+        Scene scene = new Scene(root, 300, 300);
         primaryStage.setScene(scene);
         primaryStage.show();
     }

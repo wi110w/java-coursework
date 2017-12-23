@@ -11,10 +11,10 @@ import javafx.stage.Stage;
 
 public class EditNames extends Application {
 
-    ScatterChart<Number, Number> scatterChart;
+    private ScatterChart<Number, Number> chart;
 
     public void setChart(ScatterChart<Number, Number> sc) {
-        scatterChart = sc;
+        chart = sc;
     }
 
     public static void main(String[] args) {
@@ -25,7 +25,6 @@ public class EditNames extends Application {
     public void start(Stage primaryStage) {
         primaryStage.setTitle("SDE");
         GridPane root = new GridPane();
-        Scene scene = new Scene(root, 200, 250);
 
         Label title = new Label("Title:");
         TextField titleInput = new TextField();
@@ -36,9 +35,9 @@ public class EditNames extends Application {
         Label nameY = new Label("Y Axis:");
         TextField nameYInput = new TextField();
 
-        titleInput.setText(scatterChart.getTitle());
-        nameXInput.setText(scatterChart.getXAxis().getLabel());
-        nameYInput.setText(scatterChart.getYAxis().getLabel());
+        titleInput.setText(chart.getTitle());
+        nameXInput.setText(chart.getXAxis().getLabel());
+        nameYInput.setText(chart.getYAxis().getLabel());
 
         Button editNames = new Button("Edit");
         editNames.setOnAction(actionEvent -> {
@@ -46,7 +45,7 @@ public class EditNames extends Application {
             String edNameX = nameXInput.getText();
             String edNameY = nameYInput.getText();
 
-            ScatterPlot.editNames(scatterChart, edTitle, edNameX, edNameY);
+            ScatterPlot.editNames(chart, edTitle, edNameX, edNameY);
             primaryStage.close();
         });
 
@@ -62,7 +61,7 @@ public class EditNames extends Application {
         root.add(nameY, 0, 5);
         root.add(nameYInput, 0, 6);
 
-
+        Scene scene = new Scene(root, 200, 250);
         primaryStage.setScene(scene);
         primaryStage.show();
     }

@@ -13,10 +13,10 @@ import javafx.stage.Stage;
 
 public class Names extends Application {
 
-    ScatterChart<Number, Number> scatterChart;
+    private ScatterChart<Number, Number> chart;
 
     public void setChart(ScatterChart<Number, Number> sc) {
-        scatterChart = sc;
+        chart = sc;
     }
 
     public static void main(String[] args) {
@@ -27,7 +27,6 @@ public class Names extends Application {
     public void start(Stage primaryStage) {
         primaryStage.setTitle("SDE");
         GridPane root = new GridPane();
-        Scene scene = new Scene(root, 200, 250);
 
         Label title = new Label("Title:");
         TextField titleInput = new TextField();
@@ -45,7 +44,7 @@ public class Names extends Application {
             String nameXIn = nameXInput.getText();
             String nameYIn = nameYInput.getText();
 
-            ScatterPlot.setNames(scatterChart, titleIn, nameXIn,nameYIn);
+            ScatterPlot.setNames(chart, titleIn, nameXIn,nameYIn);
             primaryStage.close();
         });
 
@@ -61,9 +60,8 @@ public class Names extends Application {
         root.add(nameY, 0, 5);
         root.add(nameYInput, 0, 6);
 
-
+        Scene scene = new Scene(root, 200, 250);
         primaryStage.setScene(scene);
         primaryStage.show();
-
     }
 }
