@@ -144,10 +144,10 @@ public class Main extends Application {
 
     private void showOpenProjectDialog(ActionEvent actionEvent) {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open scatter diagram");
+        fileChooser.setTitle("Open Scatted Diagram project");
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Scatter Diagram files (*.json)", "*.json"),
-                new FileChooser.ExtensionFilter("All Files", "*.*")
+            new FileChooser.ExtensionFilter("Scatter Diagram files (*.json)", "*.json"),
+            new FileChooser.ExtensionFilter("All Files", "*.*")
         );
 
         File file = fileChooser.showOpenDialog(scene.getWindow());
@@ -163,7 +163,23 @@ public class Main extends Application {
     }
 
     private void showSaveProjectDialog(ActionEvent actionEvent) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save Scatted Diagram project");
+        fileChooser.getExtensionFilters().addAll(
+            new FileChooser.ExtensionFilter("Scatter Diagram files (*.json)", "*.json"),
+            new FileChooser.ExtensionFilter("All Files", "*.*")
+        );
 
+        File file = fileChooser.showSaveDialog(scene.getWindow());
+        if (file == null) {
+            return;
+        }
+
+        try {
+            new ChartLoader(file, getChart()).save();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {
