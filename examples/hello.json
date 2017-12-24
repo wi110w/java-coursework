@@ -1,0 +1,7 @@
+{"axes":{"x":"day","y":"height reached"},"title":"Hello scatter charts",
+  "data": [
+    {"name": "Alice's dataset", "source": "hello-0.csv"},
+    {"name": "Bob's dataset", "source": "hello-1.csv"},
+    {"name": "Le Chuck", "source": "hello-2.csv"},
+    {"name": "John Doe", "source": "hello-3.csv"}
+  ]}
