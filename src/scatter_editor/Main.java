@@ -103,6 +103,7 @@ public class Main extends Application {
 
         loadData.setOnAction(actionEvent -> {
             LoadDataChooser loadDataChooser = new LoadDataChooser();
+            loadDataChooser.setChart(chart);
             loadDataChooser.start(new Stage());
         });
 
@@ -147,7 +148,7 @@ public class Main extends Application {
         fileChooser.setTitle("Open Scatted Diagram project");
         fileChooser.getExtensionFilters().addAll(
             new FileChooser.ExtensionFilter("Scatter Diagram files (*.json)", "*.json"),
-            new FileChooser.ExtensionFilter("All Files", "*.*")
+            new FileChooser.ExtensionFilter("All Files", "*")
         );
 
         File file = fileChooser.showOpenDialog(scene.getWindow());
@@ -167,7 +168,7 @@ public class Main extends Application {
         fileChooser.setTitle("Save Scatted Diagram project");
         fileChooser.getExtensionFilters().addAll(
             new FileChooser.ExtensionFilter("Scatter Diagram files (*.json)", "*.json"),
-            new FileChooser.ExtensionFilter("All Files", "*.*")
+            new FileChooser.ExtensionFilter("All Files", "*")
         );
 
         File file = fileChooser.showSaveDialog(scene.getWindow());
