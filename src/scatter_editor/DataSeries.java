@@ -38,10 +38,6 @@ public class DataSeries extends Application {
         Label dataSeriesY = new Label("Y Data:");
         TextArea dataYInput = new TextArea();
 
-        Label errorSeriesX = new Label();
-        Label errorSeriesY = new Label();
-        Label errorLegend = new Label();
-
         Button create = new Button("Create");
         create.setOnAction((actionEvent -> {
             String legendIn = legendInput.getText();
