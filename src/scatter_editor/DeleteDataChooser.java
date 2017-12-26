@@ -41,7 +41,7 @@ public class DeleteDataChooser extends Application {
             root.add(chooseData, 0, i);
         }
 
-        Scene scene = new Scene(root, 300, 500);
+        Scene scene = new Scene(root, 180, 250);
         primaryStage.setScene(scene);
         primaryStage.show();
     }

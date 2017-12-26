@@ -1,6 +1,7 @@
 package scatter_editor;
 
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
@@ -25,9 +26,10 @@ public class EditDataChooser extends Application {
     public void start(Stage primaryStage) {
         primaryStage.setTitle("SDE");
         GridPane root = new GridPane();
-        Scene scene = new Scene(root, 300, 500);
+        Scene scene = new Scene(root, 180, 250);
 
         root.setVgap(10);
+        root.setPadding(new Insets(20));
 
         List<XYChart.Series<Number, Number>> data = scatterChart.getData();
         for (int i = 0; i < data.size(); i++) {

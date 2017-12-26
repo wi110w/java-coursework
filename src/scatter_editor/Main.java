@@ -138,7 +138,7 @@ public class Main extends Application {
         root.setHgap(80);
         root.setVgap(10);
 
-        scene = new Scene(root, 650, 550);
+        scene = new Scene(root, 700, 600);
         primaryStage.setScene(scene);
         primaryStage.show();
     }

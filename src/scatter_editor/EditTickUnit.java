@@ -1,6 +1,7 @@
 package scatter_editor;
 
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.control.Button;
@@ -69,14 +70,15 @@ public class EditTickUnit extends Application {
             primaryStage.close();
         });
 
-        root.setVgap(10);
+        root.setVgap(15);
+        root.setPadding(new Insets(15));
         root.add(editX, 0,0);
         root.add(tickXInput, 1,0);
         root.add(editY, 0,1);
         root.add(tickYInput, 1,1);
         root.add(edit, 0,2);
 
-        Scene scene = new Scene(root, 300, 250);
+        Scene scene = new Scene(root, 280, 140);
         primaryStage.setScene(scene);
         primaryStage.show();
     }

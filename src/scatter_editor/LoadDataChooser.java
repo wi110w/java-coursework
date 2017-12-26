@@ -29,7 +29,7 @@ public class LoadDataChooser extends Application {
     public void start(Stage primaryStage) {
         primaryStage.setTitle("SDE");
         GridPane root = new GridPane();
-        scene = new Scene(root, 500, 300);
+        scene = new Scene(root, 400, 230);
 
         RadioButton loadFromFile = new RadioButton("Local");
         RadioButton loadFromServer = new RadioButton("Remote server");
@@ -82,8 +82,8 @@ public class LoadDataChooser extends Application {
             primaryStage.close();
         });
 
-        root.setVgap(10);
-        root.setPadding(new Insets(10));
+        root.setVgap(15);
+        root.setPadding(new Insets(15));
         root.add(datasetLabel, 0,0);
         root.add(datasetNameInput, 1,0);
         root.add(loadFromFile,0,1);

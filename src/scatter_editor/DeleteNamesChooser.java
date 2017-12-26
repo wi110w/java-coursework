@@ -1,6 +1,7 @@
 package scatter_editor;
 
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.control.Button;
@@ -24,7 +25,7 @@ public class DeleteNamesChooser extends Application {
     public void start(Stage primaryStage) {
         primaryStage.setTitle("SDE");
         GridPane root = new GridPane();
-        Scene scene = new Scene(root, 200, 200);
+        Scene scene = new Scene(root, 150, 150);
 
         CheckBox titleDelete = new CheckBox("Title");
         CheckBox nameXDelete = new CheckBox("X Axis label");
@@ -36,7 +37,8 @@ public class DeleteNamesChooser extends Application {
             primaryStage.close();
         });
 
-        root.setVgap(10);
+        root.setVgap(15);
+        root.setPadding(new Insets(15));
         root.add(titleDelete, 0,0);
         root.add(nameXDelete, 0,1);
         root.add(nameYDelete, 0,2);
