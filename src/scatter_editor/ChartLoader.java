@@ -186,11 +186,11 @@ public class ChartLoader {
         mapper.enable(CsvParser.Feature.WRAP_AS_ARRAY);
         InputStream csvFile = new FileInputStream(new File(baseDir, source));
 
-        MappingIterator<String[]> it = mapper.readerFor(String[].class).readValues(csvFile);
+        MappingIterator<float[]> it = mapper.readerFor(float[].class).readValues(csvFile);
         while (it.hasNext()) {
-            String[] row = it.nextValue();
-            float x = Float.parseFloat(row[0]);
-            float y = Float.parseFloat(row[1]);
+            float[] row = it.nextValue();
+            float x = row[0];
+            float y = row[1];
             s.getData().add(new XYChart.Data<>(x, y));
         }
         data.add(s);
