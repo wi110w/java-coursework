@@ -1,6 +1,7 @@
 package scatter_editor;
 
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
@@ -28,6 +29,7 @@ public class DeleteDataChooser extends Application {
         GridPane root = new GridPane();
 
         root.setVgap(10);
+        root.setPadding(new Insets(20));
 
         List<XYChart.Series<Number, Number>> data = chart.getData();
         for (int i = 0; i < data.size(); i++) {
