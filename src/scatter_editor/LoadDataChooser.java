@@ -31,8 +31,12 @@ public class LoadDataChooser extends Application {
         GridPane root = new GridPane();
         scene = new Scene(root, 400, 230);
 
-        RadioButton loadFromFile = new RadioButton("Local");
+        ToggleGroup group = new ToggleGroup();
+        RadioButton loadFromFile = new RadioButton("Local file");
         RadioButton loadFromServer = new RadioButton("Remote server");
+        loadFromFile.setToggleGroup(group);
+        loadFromFile.setSelected(true);
+        loadFromServer.setToggleGroup(group);
 
         Label datasetLabel = new Label("Dataset name:");
         TextField datasetNameInput = new TextField();
@@ -41,25 +45,16 @@ public class LoadDataChooser extends Application {
 
         Button browseFile = new Button("Browse...");
         Button load = new Button("Load");
-        browseFile.setDisable(true);
 
         loadFromServer.setOnAction(actionEvent -> {
-            if(loadFromServer.isSelected()) {
-                urlInput.setDisable(false);
-                loadFromFile.setSelected(false);
-                browseFile.setDisable(true);
-            } else {
-                urlInput.setDisable(true);
-            }
+            urlInput.setDisable(false);
+            loadFromFile.setSelected(false);
+            browseFile.setDisable(true);
         });
         loadFromFile.setOnAction(actionEvent -> {
-            if(loadFromFile.isSelected()) {
-                browseFile.setDisable(false);
-                loadFromServer.setSelected(false);
-                urlInput.setDisable(true);
-            } else {
-                browseFile.setDisable(true);
-            }
+            browseFile.setDisable(false);
+            loadFromServer.setSelected(false);
+            urlInput.setDisable(true);
         });
 
         browseFile.setOnAction(this::loadDataSetDialog);
@@ -92,6 +87,8 @@ public class LoadDataChooser extends Application {
         root.add(urlInput, 0,3);
         root.add(load, 0,4);
 
+        GridPane.setColumnSpan(urlInput, 2);
+
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -105,8 +102,5 @@ public class LoadDataChooser extends Application {
         );
 
         file = fileChooser.showOpenDialog(scene.getWindow());
-        if (file == null) {
-            return;
-        }
     }
 }
