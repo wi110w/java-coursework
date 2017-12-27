@@ -5,13 +5,15 @@ import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.chart.ScatterChart;
+import javafx.scene.chart.XYChart;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.scene.control.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
 public class LoadDataChooser extends Application {
 
@@ -61,17 +63,18 @@ public class LoadDataChooser extends Application {
 
         load.setOnAction(actionEvent -> {
             String datasetName = datasetNameInput.getText();
-
-            if(!urlInput.isDisabled()) {
-                String url = urlInput.getText();
-                ChartLoader.loadDataSet(url, datasetName);
-            }
-            else if(!browseFile.isDisabled()) {
-                try {
-                    new DataSetLoader(file, datasetName, chart).load();
-                } catch (IOException e) {
-                    e.printStackTrace();
+            try {
+                DataSetLoader loader;
+                if (!urlInput.isDisabled()) {
+                    URL url = new URL(urlInput.getText());
+                    loader = new DataSetLoader(url, datasetName);
+                } else {
+                    loader = new DataSetLoader(file, datasetName);
                 }
+                XYChart.Series<Number, Number> s = loader.load();
+                chart.getData().add(s);
+            } catch (IOException e) {
+                System.err.println("Failed to load dataset: " + e);
             }
 
             primaryStage.close();
