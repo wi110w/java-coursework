@@ -94,6 +94,7 @@ public class ChartLoader {
                 setFile = validateName(baseDir, baseName, existing, index++);
             }
 
+            // TODO: extract dataset serialization part
             CsvMapper mapper = new CsvMapper();
             OutputStream csvFile = new FileOutputStream(setFile);
 
@@ -177,27 +178,11 @@ public class ChartLoader {
         }
 
         String name = setConfig.optString("name");
-        XYChart.Series<Number, Number> s = new XYChart.Series<>();
-        s.setName(name);
-
         String source = setConfig.getString("source");
+        File sourceFile = new File(baseDir, source);
 
-        CsvMapper mapper = new CsvMapper();
-        mapper.enable(CsvParser.Feature.WRAP_AS_ARRAY);
-        InputStream csvFile = new FileInputStream(new File(baseDir, source));
-
-        MappingIterator<float[]> it = mapper.readerFor(float[].class).readValues(csvFile);
-        while (it.hasNext()) {
-            float[] row = it.nextValue();
-            float x = row[0];
-            float y = row[1];
-            s.getData().add(new XYChart.Data<>(x, y));
-        }
+        XYChart.Series<Number, Number> s = new DataSetLoader(sourceFile, name).load();
         data.add(s);
-    }
-
-    static void loadDataSet(String url, String datasetName) {
-
     }
 
     private void updateAxis(JSONObject config, String key, String defaultName, Axis<Number> axis) {
